@@ -1,48 +1,64 @@
 import React, { useContext, useEffect, useState } from "react";
 import Sidebar from "../components/Sidebar";
 import Chat from "../components/Chat";
-import { io } from "socket.io-client";
 import { AuthContext } from "../context/AuthContext";
 
-function Home() {
+function Home({ socket }) {
   const { currentUser } = useContext(AuthContext);
-  const [socketIO, setSocketIO] = useState([])
-  const [currentMessages, setCurrentMessages ] = useState([])
-  const [messagingUser, setMessagingUser ] = useState([])
+  const [currentMessages, setCurrentMessages] = useState([]);
+  const [sideBarUsers, setSideBarUsers] = useState([]);
 
-  // useEffect(() => {
-  //   const socket = io("http://localhost:3000", {
-  //     auth: {
-  //       uid: currentUser.uid,
-  //       displayName: currentUser.displayName
-  //     },
-  //   });
+  socket.emit("createRoom", {
+    uid: currentUser.uid,
+    displayName: currentUser.displayName,
+  });
 
-    // socket.on('newMessage', data => {
-    //   let currentChattingUser = (JSON.parse(localStorage.getItem('messagingUser')))
+  useEffect(() => {
+    socket.on("newMessage", (data) => {
+      let currentChattingUser = JSON.parse(
+        localStorage.getItem("messagingUser")
+      );
 
-    //   if(currentChattingUser.uid === data.from){
-    //     console.log('This message is for the current user I am chatting therefor I will rerender the message screen')
-    //     setCurrentMessages([
-    //       ...currentMessages,
-    //       data,
-    //     ]);
-    //   }
-
-    //   else{
-    //     console.log('It is just an alert, so rerender the sidebar')
-    //   }
-    // })
-
-  //   setSocketIO(socket)
-  // }, [currentMessages, currentUser.displayName, currentUser.uid]);
+      if (currentChattingUser.uid === data.from) {
+        console.log(
+          "This message is for the current user I am chatting therefor I will rerender the message screen"
+        );
+        setCurrentMessages([...currentMessages, data]);
+      } else {
+        console.log("This is from another user which I am not in their chat");
+      }
+      const getSideBarUsers = async (uid) => {
+        const response = await fetch(`/userChat/${uid}`, {
+          method: "GET",
+          redirect: "follow",
+        });
+      
+        const body = await response.json();
+        if (response.status !== 200) {
+          throw Error(body.message);
+        }
+        setSideBarUsers(body);
+        return body;
+      };
   
-  return (
+      getSideBarUsers(currentUser.uid)
+    });
 
+  }, [currentMessages, currentUser.displayName, currentUser.uid, socket]);
+
+  return (
     <div className="home">
       <div className="container">
-        <Sidebar setMessagingUser={setMessagingUser} currentMessages={currentMessages}/>
-        <Chat socketIO={socketIO} currentMessages={currentMessages} setCurrentMessages={setCurrentMessages}/>
+        <Sidebar
+          currentMessages={currentMessages}
+          setSideBarUsers={setSideBarUsers}
+          sideBarUsers={sideBarUsers}
+        />
+        <Chat
+          socket={socket}
+          currentMessages={currentMessages}
+          setCurrentMessages={setCurrentMessages}
+        />
       </div>
     </div>
   );

@@ -19,12 +19,12 @@ socketIO.on('connection', (socket) => {
     socket.handshake.auth
   );
 
-  socket.join(socket.handshake.auth.uid);
+  socket.on('createRoom', (data) => {
+    socket.join(data.uid);
+  });
 
   socket.on('message', (data) => {
-    socketIO
-      .to(data.uid)
-      .emit('newMessage', data.message);
+    socketIO.to(data.uid).emit('newMessage', data.message);
   });
 
   socket.on('disconnect', () => {

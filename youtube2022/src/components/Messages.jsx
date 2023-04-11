@@ -1,12 +1,10 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect} from "react";
 import Message from "./Message";
-import Chat from "./Chat";
 import { ChatContext } from "../context/ChatContext";
 import { v4 as uuid } from "uuid";
 import { AuthContext } from "../context/AuthContext";
 
 function Messages({ currentMessages, setCurrentMessages }) {
-  const [messages, setMessages] = useState([]);
   const { currentUser } = useContext(AuthContext);
   const { data } = useContext(ChatContext);
   const { dispatch } = useContext(ChatContext);
@@ -22,7 +20,6 @@ function Messages({ currentMessages, setCurrentMessages }) {
       if (response.status !== 200) {
         throw Error(body.message);
       }
-      setMessages(body.messages);
       setCurrentMessages(body.messages);
       dispatch({
         type: "SET_SELECTED_USER",
@@ -31,7 +28,7 @@ function Messages({ currentMessages, setCurrentMessages }) {
       return body;
     };
     getMessages();
-  }, [data.chatId, dispatch, setCurrentMessages]);
+  }, [currentUser.uid, data.chatId, dispatch, setCurrentMessages]);
 
 
   return (

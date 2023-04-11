@@ -11,7 +11,7 @@ import {
 } from "firebase/storage";
 import { v4 as uuid } from "uuid";
 
-function Input({ socketIO, currentMessages, setCurrentMessages }) {
+function Input({ socket, currentMessages, setCurrentMessages }) {
   const [text, setText] = useState("");
   const [img, setImg] = useState(null);
 
@@ -20,7 +20,6 @@ function Input({ socketIO, currentMessages, setCurrentMessages }) {
   const { dispatch } = useContext(ChatContext);
 
   async function createMessage(message, url) {
-
     const response = await fetch("/message", {
       method: "POST",
       headers: {
@@ -36,7 +35,7 @@ function Input({ socketIO, currentMessages, setCurrentMessages }) {
     });
 
     const body = await response.json();
-    console.log(body.message)
+    console.log(body.message);
     if (response.status !== 200) {
       throw Error(body.message);
     }
@@ -44,7 +43,19 @@ function Input({ socketIO, currentMessages, setCurrentMessages }) {
   }
 
   const handleSend = async () => {
-    
+    let combinedId =
+      currentUser.uid > data.user.uid
+        ? currentUser.uid + data.user.uid
+        : data.user.uid + currentUser.uid;
+    let url = [];
+    if (img) {
+      url = [URL.createObjectURL(img)];
+    }
+    setCurrentMessages([
+      ...currentMessages,
+      { combinedId, from: currentUser.uid, text, url },
+    ]);
+
     if (img) {
       const fileId = uuid();
 
@@ -59,6 +70,7 @@ function Input({ socketIO, currentMessages, setCurrentMessages }) {
           const progress =
             (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
           console.log("Upload is " + progress + "% done");
+          // eslint-disable-next-line default-case
           switch (snapshot.state) {
             case "paused":
               // eslint-disable-next-line no-unused-expressions
@@ -66,7 +78,7 @@ function Input({ socketIO, currentMessages, setCurrentMessages }) {
               break;
             case "running":
               // eslint-disable-next-line no-unused-expressions
-              "Upload is running"
+              "Upload is running";
               break;
           }
         },
@@ -74,27 +86,46 @@ function Input({ socketIO, currentMessages, setCurrentMessages }) {
           // Handle unsuccessful uploads
         },
         () => {
-
-          getDownloadURL(uploadTask.snapshot.ref).then(async(downloadURL) => {
-            url = downloadURL
+          getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
+            url = downloadURL;
             await createMessage(text, [downloadURL]);
+            socket.emit("message", {
+              displayName: data.user.displayName,
+              from: currentUser.uid,
+              uid: data.user.uid,
+              message: {
+                combinedId,
+                from: currentUser.uid,
+                text,
+                url: [downloadURL],
+                uid: data.user.uid,
+              },
+            });
           });
         }
       );
     } else {
       await createMessage(text, []);
+      socket.emit("message", {
+        displayName: data.user.displayName,
+        from: currentUser.uid,
+        uid: data.user.uid,
+        message: {
+          combinedId,
+          from: currentUser.uid,
+          text,
+          url: [],
+          uid: data.user.uid,
+        },
+      });
     }
 
     dispatch({
       type: "CHANGE_USER",
       payload: data.user,
     });
-    let combinedId = currentUser.uid> data.user.uid ? currentUser.uid + data.user.uid : data.user.uid + currentUser.uid;
-    let url = []
-    if(img){
-      url = [URL.createObjectURL(img)]
-    }
-    setCurrentMessages([...currentMessages, {combinedId, from: currentUser.uid, text, url}])
+
+
     setText("");
     setImg(null);
   };

@@ -6,7 +6,7 @@ import Messages from "./Messages"
 import Input from "./Input"
 import { ChatContext } from '../context/ChatContext'
 
-function Chat({socketIO, currentMessages, setCurrentMessages}) {
+function Chat({socket, currentMessages, setCurrentMessages}) {
 
   const { data  } = useContext(ChatContext);
   return (
@@ -20,7 +20,7 @@ function Chat({socketIO, currentMessages, setCurrentMessages}) {
             </div>
         </div>
         <Messages currentMessages={currentMessages} setCurrentMessages={setCurrentMessages} />
-        <Input socketIO={socketIO} currentMessages={currentMessages}  setCurrentMessages={setCurrentMessages}  />
+        <Input socket={socket} currentMessages={currentMessages}  setCurrentMessages={setCurrentMessages}  />
     </div>
   )
 }

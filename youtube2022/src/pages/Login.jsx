@@ -1,5 +1,4 @@
 import React, { useContext, useState } from "react";
-import Add from "../img/addAvatar.png";
 import { useNavigate, Link } from "react-router-dom";
 import {signInWithEmailAndPassword} from 'firebase/auth'
 import { auth } from "../firebase";
@@ -17,10 +16,11 @@ function Login() {
     const password = e.target[1].value;
 
     try {
-      const letter = await signInWithEmailAndPassword(auth, email, password)
+      await signInWithEmailAndPassword(auth, email, password)
       localStorage.setItem('currentUser', JSON.stringify({uid: currentUser.uid, displayName: currentUser.displayName}))
       navigate('/')
     } catch (error) {
+      alert('Invalid Password/Email')
       setErr(true);
     }
   };

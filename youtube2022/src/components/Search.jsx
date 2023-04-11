@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { ChatContext } from "../context/ChatContext";
 
-function Search({setMessagingUser}) {
+function Search() {
   const [username, setUsername] = useState("");
   const [user, setUser] = useState(null);
   const [err, setErr] = useState(false);
@@ -45,7 +45,6 @@ function Search({setMessagingUser}) {
       const user = await searchForUser(username);
       localStorage.setItem('messagingUser', user)
       setUser(user);
-      setMessagingUser(user)
     } catch (error) {
       setErr(true);
     }
@@ -56,12 +55,6 @@ function Search({setMessagingUser}) {
   };
 
   const handleSelect = async (e) => {
-    // check whether the group exists, if not create
-    const combinedId =
-      currentUser.uid > user.uid
-        ? currentUser.uid + user.uid
-        : user.uid + currentUser.uid;
-
     try {
       // Call server to create a connection if there is none
       await addToUserChat({uids: [currentUser.uid, user.uid]})

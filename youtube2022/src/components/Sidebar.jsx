@@ -1,14 +1,14 @@
 import React from 'react'
 import Navbar from './Navbar'
-import Chats from './Chats'
 import Search from './Search'
+import SideBarUsers from './SideBarUsers'
 
-const Sidebar = ({setMessagingUser, currentMessages}) => {
+const Sidebar = ({currentMessages, setSideBarUsers, sideBarUsers}) => {
   return (
     <div className='sidebar' >
         <Navbar/>
-        <Search setMessagingUser={setMessagingUser}/>
-        <Chats setMessagingUser={setMessagingUser} currentMessages={currentMessages}/>
+        <Search/>
+        <SideBarUsers currentMessages={currentMessages} setSideBarUsers={setSideBarUsers} sideBarUsers={sideBarUsers}/>
     </div>
   )
 }

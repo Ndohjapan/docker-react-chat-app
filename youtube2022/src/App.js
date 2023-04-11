@@ -5,6 +5,9 @@ import "./style.scss";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useContext, useState } from "react";
 import { AuthContext } from "./context/AuthContext";
+import socketIO from 'socket.io-client';
+
+const socket = socketIO.connect('http://localhost:5000');
 
 function App() {
   // const [currentUser, setCurrentUser] = useState({});
@@ -28,7 +31,7 @@ function App() {
             index
             element={
               <ProtectedRoute>
-                <Home />
+                <Home socket={socket}/>
               </ProtectedRoute>
             }
           />
