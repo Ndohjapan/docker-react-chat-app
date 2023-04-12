@@ -1,5 +1,5 @@
 const express = require('express');
-const en = require('../../locales/en/transalation');
+const en = require('../../locale/en/translation');
 const { save } = require('../controller/users');
 const router = express.Router();
 const { check, validationResult } = require('express-validator');

@@ -1,6 +1,6 @@
 module.exports = {
   user_created: 'User Successfully Created',
-  invalid_email: 'Not a valid email',
+  invalid_email: 'Not a valid email address',
   validation_failure: 'Validation Failure',
   invalid_displayName: 'Not a valid display name',
   invalid_uid: 'Not a valid uid',

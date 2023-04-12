@@ -56,6 +56,7 @@ function DisplaySideBar({sideBarUsers}){
                   </div>
                 ));
             }
+            return true
           })}
         </div>
       );

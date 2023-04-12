@@ -3,14 +3,13 @@ import Login from "./pages/Login";
 import Home from "./pages/Home";
 import "./style.scss";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { useContext, useState } from "react";
+import { useContext} from "react";
 import { AuthContext } from "./context/AuthContext";
 import socketIO from 'socket.io-client';
 
 const socket = socketIO.connect('http://localhost:5000');
 
 function App() {
-  // const [currentUser, setCurrentUser] = useState({});
   const { currentUser } = useContext(AuthContext);
 
 

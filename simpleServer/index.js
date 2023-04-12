@@ -15,8 +15,7 @@ const socketIO = require('socket.io')(http, {
 
 socketIO.on('connection', (socket) => {
   console.log(
-    `⚡: ${socket.id} user just connected! \n`,
-    socket.handshake.auth
+    `⚡: ${socket.id} user just connected!`
   );
 
   socket.on('createRoom', (data) => {

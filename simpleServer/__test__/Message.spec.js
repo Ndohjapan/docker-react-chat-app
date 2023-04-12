@@ -1,10 +1,12 @@
 const app = require('../src/app');
 const request = require('supertest');
 const { UserSchema } = require('../src/models/User');
-const en = require('../locales/en/transalation');
+const en = require('../locale/en/translation');
 const mongoose = require('mongoose');
 const { UserChatSchema } = require('../src/models/UserChat');
 const { MessageSchema } = require('../src/models/Messages');
+const test = require('../config/test');
+const dbConfig = test.database
 
 let user1 = {
   displayName: 'Ndohjapan',
@@ -24,7 +26,7 @@ let combinedId =
   user1.uid > user2.uid ? user1.uid + user2.uid : user2.uid + user1.uid;
 
 beforeEach(async () => {
-  await mongoose.connect('mongodb://localhost:27017/test5', {
+  await mongoose.connect(dbConfig.url+'/test5', {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   });

@@ -6,7 +6,6 @@ function Message({ message }) {
 
   const { currentUser } = useContext(AuthContext);
   const { data } = useContext(ChatContext);
-  const { dispatch } = useContext(ChatContext);
 
   const ref = useRef();
 

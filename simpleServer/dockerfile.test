@@ -1,0 +1,19 @@
+FROM node:14-alpine
+
+# Change the work dir
+WORKDIR /app
+
+# Copy the package.json file and the lock file as well
+COPY package*.json ./
+
+# Install the required modules
+RUN npm install
+
+# Copy the remaining of the app
+COPY . .
+
+# Dreate volume for the node modules
+VOLUME /app/node_modules
+
+# Run the test
+CMD ["npm", "run", "test"]

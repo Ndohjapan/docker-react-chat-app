@@ -1,5 +1,7 @@
 module.exports = {
   database: {
-    url: 'mongodb://localhost:27017/testDatabase',
+    host: process.env.DB_HOST,
+    port: process.env.DB_PORT,
+    url: `mongodb://${process.env.DB_HOST}:${process.env.DB_PORT}`
   },
 };

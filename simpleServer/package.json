@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "cross-env NODE_ENV=development nodemon index.js",
+    "dev": "cross-env NODE_ENV=development nodemon --legacy-watch --inspect=0.0.0.0 index.js",
     "start": "node index.js",
-    "test": "cross-env NODE_ENV=test  jest --watch"
+    "test": "cross-env NODE_ENV=test  jest --runInBand"
   },
   "keywords": [],
   "author": "",

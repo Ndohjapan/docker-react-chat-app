@@ -1,6 +1,6 @@
 const express = require('express');
 const { check, validationResult } = require('express-validator');
-const en = require('../../locales/en/transalation');
+const en = require('../../locale/en/translation');
 const ValidationException = require('../error/ValidationException');
 const { addUserToChat, getUserChat } = require('../controller/userchat');
 const router = express.Router();

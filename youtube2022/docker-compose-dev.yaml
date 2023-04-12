@@ -1,0 +1,17 @@
+version: '3'
+services: 
+  react-app:
+    build:
+      context: .
+      dockerfile: dockerfile.dev
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+      - /app/node_modules
+    environment:
+      - WATCHPACK_POLLING=true
+    networks:
+      - app-network
+networks:
+  app-network: 

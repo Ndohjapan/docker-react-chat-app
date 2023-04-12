@@ -1,13 +1,15 @@
 const app = require('../src/app');
 const request = require('supertest');
 const { UserSchema } = require('../src/models/User');
-const en = require('../locales/en/transalation');
+const en = require('../locale/en/translation');
 const mongoose = require('mongoose');
+const test = require('../config/test');
+const dbConfig = test.database
 
 let validUser;
 
 beforeEach(async () => {
-  await mongoose.connect('mongodb://localhost:27017/test3', {
+  await mongoose.connect(dbConfig.url+'/test3', {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   });

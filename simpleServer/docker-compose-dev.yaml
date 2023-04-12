@@ -3,7 +3,7 @@ version: '3.9'
 services:
   mongodb:
     image: mongo
-    command: mongod --quiet
+    command: mongod --quiet --logpath /dev/null 
     restart: always
     environment:
       - MONGO_INITDB_ROOT_USERNAME=root
@@ -15,9 +15,35 @@ services:
     ports:
       - "27017:27017"
 
-  server:
+  test-mongodb:
+    image: mongo
+    restart: always
+    command: mongod --quiet --logpath /dev/null 
+    volumes:
+      - test_mongodb_data:/data/db  
+    networks:
+      - app-network
+    ports:
+      - "27018:27017"
+    
+
+  test:
     build: 
-      context: ./simpleServer
+      context: .
+      dockerfile: dockerfile.test
+    environment:
+      - DB_HOST=test-mongodb
+      - DB_PORT=27017
+    depends_on:
+      - test-mongodb
+    networks:
+      - app-network
+    volumes:
+      - .:/app
+
+  dev:
+    build: 
+      context: .
       dockerfile: dockerfile.dev
     environment:
       - DB_HOST=mongodb
@@ -31,26 +57,12 @@ services:
     ports:
       - "5000:5000"
     volumes:
-      - ./simpleServer:/app
-
-  react-app:
-    build:
-      context: ./youtube2022
-      dockerfile: dockerfile.dev
-    ports:
-      - "3000:3000"
-    volumes:
-      - ./youtube2022:/app
-      - /app/node_modules
-    depends_on:
-      - server
-    networks:
-      - app-network
-    environment:
-      - WATCHPACK_POLLING=true
+      - .:/app
+    restart: always
 
 volumes:
   mongodb_data:
+  test_mongodb_data:
 
 networks:
   app-network:

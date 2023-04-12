@@ -1,0 +1,34 @@
+version: '3.9'
+
+services:
+  test-mongodb:
+    image: mongo
+    restart: always
+    command: mongod --quiet --logpath /dev/null 
+    volumes:
+      - test_mongodb_data:/data/db  
+    networks:
+      - test-network
+    ports:
+      - "27018:27017"
+    
+  server-test:
+    build: 
+      context: ./simpleServer/
+      dockerfile: dockerfile.test
+    environment:
+      - DB_HOST=test-mongodb
+      - DB_PORT=27017
+    depends_on:
+      - test-mongodb
+    networks:
+      - test-network
+    volumes:
+      - ./simpleServer:/app
+
+
+volumes:
+  test_mongodb_data:
+
+networks:
+  test-network:
