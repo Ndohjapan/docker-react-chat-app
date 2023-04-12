@@ -39,8 +39,6 @@ After that you can access the application on localhost:3000
 
 ![Whole Application](https://res.cloudinary.com/lcu-feeding/image/upload/v1681325579/react-chat-app/ezgif.com-video-to-gif_1_l1a0uc.gif)
 
-[![YT Video](https://img.youtube.com/vi/wJg9-tHmKSc/0.jpg)](https://www.youtube.com/watch?v=wJg9-tHmKSc)
-
 ## How To Test
 ~~~
 docker compose -f docker-compose-test.yaml up
