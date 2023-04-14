@@ -7,7 +7,7 @@ import { useNavigate, Link } from "react-router-dom";
 
 async function saveToDB(uid, displayName, email, photoURL) {
   // Save data in the database
-  const response = await fetch("/api/1.0/auth/user", {
+  const response = await fetch("/api/api/1.0/auth/user", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

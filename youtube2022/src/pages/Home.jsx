@@ -28,7 +28,7 @@ function Home({ socket }) {
         console.log("This is from another user which I am not in their chat");
       }
       const getSideBarUsers = async (uid) => {
-        const response = await fetch(`/userChat/${uid}`, {
+        const response = await fetch(`/api/userChat/${uid}`, {
           method: "GET",
           redirect: "follow",
         });

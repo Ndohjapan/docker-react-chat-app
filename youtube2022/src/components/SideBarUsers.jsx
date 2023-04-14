@@ -10,7 +10,7 @@ function SideBarUsers({ currentMessages, setSideBarUsers, sideBarUsers }) {
 
   useEffect(() => {
     const getChats = async () => {
-      const response = await fetch(`/userChat/${currentUser.uid}`, {
+      const response = await fetch(`/api/userChat/${currentUser.uid}`, {
         method: "GET",
         redirect: "follow",
       });

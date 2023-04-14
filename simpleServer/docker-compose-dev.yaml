@@ -15,32 +15,6 @@ services:
     ports:
       - "27017:27017"
 
-  test-mongodb:
-    image: mongo
-    restart: always
-    command: mongod --quiet --logpath /dev/null 
-    volumes:
-      - test_mongodb_data:/data/db  
-    networks:
-      - app-network
-    ports:
-      - "27018:27017"
-    
-
-  test:
-    build: 
-      context: .
-      dockerfile: dockerfile.test
-    environment:
-      - DB_HOST=test-mongodb
-      - DB_PORT=27017
-    depends_on:
-      - test-mongodb
-    networks:
-      - app-network
-    volumes:
-      - .:/app
-
   dev:
     build: 
       context: .
