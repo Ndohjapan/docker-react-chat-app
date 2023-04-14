@@ -20,7 +20,7 @@ function Input({ socket, currentMessages, setCurrentMessages }) {
   const { dispatch } = useContext(ChatContext);
 
   async function createMessage(message, url) {
-    const response = await fetch("/message", {
+    const response = await fetch("/api/message", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

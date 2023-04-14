@@ -7,7 +7,7 @@ import { useContext} from "react";
 import { AuthContext } from "./context/AuthContext";
 import socketIO from 'socket.io-client';
 
-const socket = socketIO.connect('http://localhost:5000');
+const socket = socketIO.connect("http://localhost:5001");
 
 function App() {
   const { currentUser } = useContext(AuthContext);

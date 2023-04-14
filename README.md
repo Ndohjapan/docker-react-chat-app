@@ -25,7 +25,6 @@ REACT_APP_STORAGE_BUCKET=string
 REACT_APP_MESSAGE_SENDER_ID=string
 REACT_APP_APP_ID=string
 REACT_APP_MEASUREMENT_ID=string
-REACT_APP_API_URL=http://server:5000
 ~~~
 
 ### Run the docker compose in the root directory
@@ -37,7 +36,7 @@ After that you can access the application on localhost:3000
 
 ![Login Page](https://res.cloudinary.com/lcu-feeding/image/upload/v1681319987/react-chat-app/Screenshot_2023-04-12_181819_zlwwdc.png)
 
-![Whole Application](https://res.cloudinary.com/lcu-feeding/image/upload/v1681325579/react-chat-app/ezgif.com-video-to-gif_1_l1a0uc.gif)
+![Whole Application](https://res.cloudinary.com/lcu-feeding/image/upload/v1681490372/react-chat-app/d98f3dfab5ed4e56dda65180563ca4bda9768e2e_rwgzga.gif)
 
 ## How To Test
 ~~~

@@ -11,7 +11,7 @@ function Messages({ currentMessages, setCurrentMessages }) {
 
   useEffect(() => {
     const getMessages = async () => {
-      const response = await fetch(`/message/${data.chatId}/${currentUser.uid}`, {
+      const response = await fetch(`/api/message/${data.chatId}/${currentUser.uid}`, {
         method: "GET",
         redirect: "follow",
       });

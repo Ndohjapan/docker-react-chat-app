@@ -11,7 +11,7 @@ function Search() {
 
 
   async function searchForUser(displayName) {
-    const response = await fetch(`/search?displayName=${displayName}`, {
+    const response = await fetch(`/api/search?displayName=${displayName}`, {
       method: "GET",
       redirect: "follow",
     });
@@ -24,7 +24,7 @@ function Search() {
   }
 
   async function addToUserChat(uids) {
-    const response = await fetch("/userChat", {
+    const response = await fetch("/api/userChat", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

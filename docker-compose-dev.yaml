@@ -1,9 +1,9 @@
-version: '3.9'
+version: "3.9"
 
 services:
   mongodb:
     image: mongo
-    command: mongod --quiet
+    command: mongod --quiet --logpath /dev/null
     restart: always
     environment:
       - MONGO_INITDB_ROOT_USERNAME=root
@@ -15,8 +15,8 @@ services:
     ports:
       - "27017:27017"
 
-  server:
-    build: 
+  api:
+    build:
       context: ./simpleServer
       dockerfile: dockerfile.dev
     environment:
@@ -28,27 +28,53 @@ services:
       - mongodb
     networks:
       - app-network
-    ports:
-      - "5000:5000"
     volumes:
       - ./simpleServer:/app
+      - /app/node_modules
+
+  socket:
+    build:
+      context: ./socketServer
+      dockerfile: dockerfile.dev
+    depends_on:
+      - api
+    networks:
+      - app-network
+    volumes:
+      - ./socketServer:/app
+      - /app/node_modules
+    ports:
+      - "5001:5001"
 
   react-app:
     build:
       context: ./youtube2022
       dockerfile: dockerfile.dev
-    ports:
-      - "3000:3000"
     volumes:
       - ./youtube2022:/app
       - /app/node_modules
     depends_on:
-      - server
+      - api
     networks:
       - app-network
     environment:
       - WATCHPACK_POLLING=true
+      - REACT_APP_API_URL=http://api:5000
 
+  nginx:
+    restart: always
+    build:
+      context: ./nginx
+      dockerfile: dockerfile.dev
+    ports:
+      - "3000:80"
+    depends_on:
+      - api
+      - react-app
+    environment:
+      - WDS_SOCKET_PORT=0
+    networks:
+      - app-network
 volumes:
   mongodb_data:
 
