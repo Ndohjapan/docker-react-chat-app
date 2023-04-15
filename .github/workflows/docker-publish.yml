@@ -39,11 +39,5 @@ jobs:
       - name: Build and Push to Docker Hub
         run: |
           docker-compose -f docker-compose-dev.yaml build --tag chat-app:latest
-          docker tag react-chat-app-api ndohjapan/react-chat-app-api
-          docker tag react-chat-app-socket  ndohjapan/react-chat-app-socket 
-          docker tag react-chat-app-nginx  ndohjapan/react-chat-app-nginx 
-          docker tag react-chat-app-react-app ndohjapan/react-chat-app-react-app
-          docker push  ndohjapan/react-chat-app-api
-          docker push  ndohjapan/react-chat-app-socket 
-          docker push ndohjapan/react-chat-app-nginx 
-          docker push  ndohjapan/react-chat-app-react-app
+          docker tag chat-app ndohjapan/chat-app
+          docker push  ndohjapan/chat-app
