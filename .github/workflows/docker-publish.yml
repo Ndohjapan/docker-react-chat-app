@@ -35,7 +35,7 @@ jobs:
         run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Build react app
-        run: docker build --build-arg REACT_APP_API_KEY=${{ secrets.REACT_APP_API_KEY }} REACT_APP_AUTH_DOMAIN=${{ secrets.REACT_APP_AUTH_DOMAIN }} REACT_APP_PROJECT_ID=${{ secrets.REACT_APP_PROJECT_ID }} REACT_APP_STORAGE_BUCKET=${{ secrets.REACT_APP_STORAGE_BUCKET }} REACT_APP_MESSAGE_SENDER_ID=${{ secrets.REACT_APP_MESSAGE_SENDER_ID }} REACT_APP_APP_ID=${{ secrets.REACT_APP_APP_ID }} REACT_APP_MEASUREMENT_ID=${{ secrets.REACT_APP_MEASUREMENT_ID }} -f ./youtube2022/dockerfile.dev -t ndohjapan/chat-client ./youtube2022
+        run: docker build --build-arg REACT_APP_API_KEY=${{ secrets.REACT_APP_API_KEY }} REACT_APP_AUTH_DOMAIN=${{ secrets.REACT_APP_AUTH_DOMAIN }} REACT_APP_PROJECT_ID=${{ secrets.REACT_APP_PROJECT_ID }} REACT_APP_STORAGE_BUCKET=${{ secrets.REACT_APP_STORAGE_BUCKET }} REACT_APP_MESSAGE_SENDER_ID=${{ secrets.REACT_APP_MESSAGE_SENDER_ID }} REACT_APP_APP_ID=${{ secrets.REACT_APP_APP_ID }} REACT_APP_MEASUREMENT_ID=${{ secrets.REACT_APP_MEASUREMENT_ID }} -f dockerfile.dev -t ndohjapan/chat-client ./youtube2022
 
       - name: Build server
         run: docker build -f ./simpleServer/dockerfile.dev -t ndohjapan/chat-server ./simpleServer
