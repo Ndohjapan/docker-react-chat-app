@@ -41,5 +41,5 @@ jobs:
 
       - name: Build and Push to Docker Hub
         run: |
-          docker-compose -f docker-compose-dev.yaml -t ndohjapan/chat-app build
-          docker-compose push ndohjapan/chat-app
+          docker-compose -f docker-compose-dev.yaml build --tag chat-app:latest
+          docker-compose push
