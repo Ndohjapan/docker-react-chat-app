@@ -38,13 +38,13 @@ jobs:
         run: docker build -f ./youtube2022/dockerfile.dev -t ndohjapan/chat-client ./youtube2022
 
       - name: Build server
-        run: docker build -f dockerfile.dev -t ndohjapan/chat-server ./simpleServer
+        run: docker build -f ./simpleServer/dockerfile.dev -t ndohjapan/chat-server ./simpleServer
 
       - name: Build socket server
-        run: docker build -f dockerfile.dev -t ndohjapan/chat-socket ./socketServer
+        run: docker build -f ./socketServer/dockerfile.dev -t ndohjapan/chat-socket ./socketServer
 
       - name: Build nginx
-        run: docker build -f dockerfile.dev -t ndohjapan/chat-nginx ./nginx
+        run: docker build -f ./nginx/dockerfile.dev -t ndohjapan/chat-nginx ./nginx
       
       - name: Push React app to docker hub
         run: docker push ndohjapan/chat-client
