@@ -1,0 +1,19 @@
+FROM node:14-alpine
+
+# Change to the working directory
+WORKDIR /app
+
+# Copy the package.json
+COPY package*.json ./
+
+# Install the necessary modules
+RUN npm install
+
+# Copy the rest of the folder
+COPY . .
+
+# Create a volume for the node_modules
+VOLUME "/app/node_modules"
+
+# Start Command
+CMD [ "npm", "run", "dev"]
