@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "cross-env NODE_ENV=development nodemon --legacy-watch --inspect=0.0.0.0 index.js",
     "start": "node index.js",
-    "test": "cross-env NODE_ENV=test  jest --runInBand --forceExit"
+    "test": "cross-env NODE_ENV=test  jest --runInBand --detectOpenHandles --forceExit"
   },
   "keywords": [],
   "author": "",
