@@ -36,7 +36,27 @@ jobs:
       - name: login to docker
         run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Build and Push to Docker Hub
-        run: |
-          docker-compose -f docker-compose-dev.yaml build 
-          docker push
+      - name: Build react app
+        run: docker build -f dockerfile.dev -t ndohjapan/chat-client ./youtube2022
+
+      - name: Build server
+        run: docker build -f dockerfile.dev -t ndohjapan/chat-server ./simpleServer
+
+      - name: Build socket server
+        run: docker build -f dockerfile.dev -t ndohjapan/chat-socket ./socketServer
+
+      - name: Build nginx
+        run: docker build -f dockerfile.dev -t ndohjapan/chat-nginx ./nginx
+      
+      - name: Push React app to docker hub
+        run: docker push ndohjapan/chat-client
+      
+      - name: Push Server to docker hub
+        run: docker push ndohjapan/chat-server
+      
+      - name: Push Socket app to docker hub
+        run: docker push ndohjapan/chat-socket
+      
+      - name: Push Nginx app to docker hub
+        run: docker push ndohjapan/chat-nginx
+      
