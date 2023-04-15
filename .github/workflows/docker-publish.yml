@@ -34,9 +34,6 @@ jobs:
       - name: login to docker
         run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Build react app
-        run: docker build --build-arg REACT_APP_API_KEY=${{ secrets.REACT_APP_API_KEY }} --build-arg REACT_APP_AUTH_DOMAIN=${{ secrets.REACT_APP_AUTH_DOMAIN }} --build-arg REACT_APP_PROJECT_ID=${{ secrets.REACT_APP_PROJECT_ID }} --build-arg REACT_APP_MESSAGE_SENDER_ID=${{ secrets.REACT_APP_MESSAGE_SENDER_ID }} --build-arg REACT_APP_APP_ID=${{ secrets.REACT_APP_APP_ID }} --build-arg REACT_APP_MEASUREMENT_ID=${{ secrets.REACT_APP_MEASUREMENT_ID }}  -t ndohjapan/chat-client ./youtube2022
-
       - name: Build server
         run: docker build -t ndohjapan/chat-server ./simpleServer
 
@@ -45,9 +42,6 @@ jobs:
 
       - name: Build nginx
         run: docker build -t ndohjapan/chat-nginx ./nginx
-
-      - name: Push React app to docker hub
-        run: docker push ndohjapan/chat-client
 
       - name: Push Server to docker hub
         run: docker push ndohjapan/chat-server
