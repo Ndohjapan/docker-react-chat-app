@@ -19,7 +19,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Buld the test image
-        run: docker-compose -f docker-compose-test.yaml --build
+        run: docker-compose -f docker-compose-test.yaml build
 
       - name: test the server
         run: docker-compose -f docker-compose-test.yaml up
@@ -41,5 +41,5 @@ jobs:
 
       - name: Build and Push to Docker Hub
         run: |
-          docker-compose -f docker-compose-dev.yaml -t ndohjapan/chat-app --build
+          docker-compose -f docker-compose-dev.yaml -t ndohjapan/chat-app build
           docker-compose push ndohjapan/chat-app
