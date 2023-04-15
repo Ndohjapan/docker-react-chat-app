@@ -71,15 +71,15 @@ jobs:
         run: zip -r deploy.zip * .[^.]* -x "**node_modules**"
 
       - name: Get timestamp
-        run: gerred/actions/current-time@master
+        uses: gerred/actions/current-time@master
         id: current-time
 
       - name: Run string replace
         uses: frabert/replace-string-action@master
-        id: format-time 
+        id: format-time
         with:
           pattern: '[:\.]+'
-          string: "${{ steps.current-time-outputs.time}}"
+          string: "${{ steps.current-time.outputs.time }}"
           replace-with: '-'
           flags: 'g'
 
