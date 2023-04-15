@@ -8,7 +8,6 @@ on:
   pull_request:
     branches: ["master"]
 jobs:
-
   # Test the nodejs server
   build_test:
     runs-on: ubuntu-latest
@@ -23,15 +22,13 @@ jobs:
 
       - name: test the server
         run: docker-compose -f docker-compose-test.yaml up --abort-on-container-exit
-  
-  push_to_Docker_Hub:
 
+  push_to_Docker_Hub:
     runs-on: ubuntu-latest
 
     needs: [build_test]
 
-    steps: 
-
+    steps:
       - uses: actions/checkout@v3
 
       # Login to docker hub
@@ -42,4 +39,11 @@ jobs:
       - name: Build and Push to Docker Hub
         run: |
           docker-compose -f docker-compose-dev.yaml build --tag chat-app:latest
-          docker-compose push
+          docker tag react-chat-app-api ndohjapan/react-chat-app-api
+          docker tag react-chat-app-socket  ndohjapan/react-chat-app-socket 
+          docker tag react-chat-app-nginx  ndohjapan/react-chat-app-nginx 
+          docker tag react-chat-app-react-app ndohjapan/react-chat-app-react-app
+          docker push  ndohjapan/react-chat-app-api
+          docker push  ndohjapan/react-chat-app-socket 
+          docker push ndohjapan/react-chat-app-nginx 
+          docker push  ndohjapan/react-chat-app-react-app
