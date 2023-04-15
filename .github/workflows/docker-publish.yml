@@ -22,7 +22,7 @@ jobs:
         run: docker-compose -f docker-compose-test.yaml build
 
       - name: test the server
-        run: docker-compose -f docker-compose-test.yaml up
+        run: docker-compose -f docker-compose-test.yaml up --abort-on-container-exit
   
   push_to_Docker_Hub:
 
