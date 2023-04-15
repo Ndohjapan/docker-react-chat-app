@@ -68,7 +68,7 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: Generate deployment package
-        run: zip -r deploy.zip * .[^.]* -x "**node_modules**""
+        run: zip -r deploy.zip * .[^.]* -x "**node_modules**"
 
       - name: Get timestamp
         run: gerred/actions/current-time@master
