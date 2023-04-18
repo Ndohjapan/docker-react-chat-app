@@ -58,7 +58,6 @@ services:
     networks:
       - app-network
     environment:
-      - WATCHPACK_POLLING=true
       - REACT_APP_API_URL=http://api:5000
 
   nginx:
@@ -67,7 +66,7 @@ services:
       context: ./nginx
       dockerfile: dockerfile
     ports:
-      - "8080:80"
+      - "80:80"
     depends_on:
       - api
       - react-app
