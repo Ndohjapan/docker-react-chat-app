@@ -73,8 +73,6 @@ jobs:
           host: ${{secrets.GOOGLE_CLOUD_VM_IP}}
           username: ${{secrets.GOOGLE_CLOUD_VM_USERNAME}}
           script: |
-            cd /var/app/docker-react-chat-app/youtube2022
-            source .env
             cd /var/app/docker-react-chat-app
             git pull
             sudo docker compose down
