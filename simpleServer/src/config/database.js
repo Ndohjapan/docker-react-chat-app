@@ -10,7 +10,7 @@ const database = async () => {
       keepAliveInitialDelay: 300000,
       useNewUrlParser: true,
     });
-    if (process.env.NODE_ENV === 'development') {
+    if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'production') {
       console.log('connected to db....');
     }
   } catch (error) {

@@ -66,32 +66,12 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Generate deployment package
-        run: zip -r deploy.zip * .[^.]* -x "**node_modules**"
-
-      - name: Get timestamp
-        uses: gerred/actions/current-time@master
-        id: current-time
-
-      - name: Run string replace
-        uses: frabert/replace-string-action@master
-        id: format-time
+      - name: SSH Remote Commands
+        uses: appleboy/ssh-action@v0.1.10
         with:
-          pattern: '[:\.]+'
-          string: "${{ steps.current-time.outputs.time }}"
-          replace-with: "-"
-          flags: "g"
-
-      - name: Deploy to EB
-        uses: einaregilsson/beanstalk-deploy@v16
-        with:
-          aws_access_key: ${{ secrets.AWS_ACCESS_KEY }}
-          aws_secret_key: ${{ secrets.AWS_SECRET_KEY }}
-          application_name: react-chat-app
-          environment_name: Reactchatapp-env
-          version_label: "e-learn-${{ steps.format-time.outputs.replaced }}"
-          region: eu-west-2
-          deployment_package: deploy.zip
-
-      - name: Deployed!
-        run: echo App deployed to ELB
+          key: ${{secrets.GOOGLE_CLOUD_VM_SSH}}
+          host: ${{secrets.GOOGLE_CLOUD_VM_IP}}
+          username: ${{secrets.GOOGLE_CLOUD_VM_USERNAME}}
+          script: |
+            docker compose down
+            docker compose up -d

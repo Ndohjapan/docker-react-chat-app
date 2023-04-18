@@ -16,4 +16,4 @@ COPY . .
 VOLUME "/app/node_modules"
 
 # Start Command
-CMD [ "npm", "run", "dev"]
+CMD [ "npm", "start"]
