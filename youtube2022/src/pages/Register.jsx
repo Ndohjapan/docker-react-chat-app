@@ -4,8 +4,9 @@ import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth, storage } from "../firebase";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { useNavigate, Link } from "react-router-dom";
+import { FaSpinner } from "react-icons/fa";
 
-async function saveToDB(uid, displayName, email, photoURL) {
+async function saveToDB(uid, displayName, email, photoURL) {  
   // Save data in the database
   const response = await fetch("/api/api/1.0/auth/user", {
     method: "POST",
@@ -30,11 +31,14 @@ async function saveToDB(uid, displayName, email, photoURL) {
 function Register() {
   const { err, setErr } = useState(false);
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
 
   localStorage.setItem("messagingUser", "")
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    setIsLoading(true);
 
     const displayName = e.target[0].value;
     const email = e.target[1].value;
@@ -62,17 +66,21 @@ function Register() {
 
             try {
               await saveToDB(res.user.uid, displayName, email, downloadURL);
+              setIsLoading(false);
               navigate("/");
             } catch (error) {
               console.log(error);
+              setIsLoading(false);
               setErr(true);
             }
           });
         }
       );
     } catch (error) {
+      setIsLoading(false);
       setErr(true);
     }
+
   };
 
   return (
@@ -89,7 +97,13 @@ function Register() {
             <img src={Add} alt="" />
             <span>Add an avatar</span>
           </label>
-          <button>Sign Up</button>
+          <button type="submit" disabled={isLoading}>
+          {isLoading ? (
+            <FaSpinner className="spinner" />
+          ) : (
+            "Sign Up"
+          )}
+        </button>
           {err && <span>Something went wrong</span>}
         </form>
         <p>

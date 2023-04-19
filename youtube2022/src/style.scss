@@ -63,12 +63,29 @@ $darkColor: #a7bcff;
             }
 
             button {
+                @keyframes spin {
+                    0% {
+                        transform: rotate(0deg);
+                    }
+
+                    100% {
+                        transform: rotate(360deg);
+                    }
+                }
+
+
                 background-color: #7b96ec;
                 color: white;
                 padding: 10px;
                 font-weight: bold;
                 border: none;
                 cursor: pointer;
+
+                .spinner{
+                    animation: spin 1s infinite linear;
+                }
+
+
             }
 
             label {
