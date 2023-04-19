@@ -7,7 +7,7 @@ import { useContext} from "react";
 import { AuthContext } from "./context/AuthContext";
 import socketIO from 'socket.io-client';
 
-const socket = socketIO.connect(`http://${process.env.REACT_APP_HOST_IP}:5001`);
+const socket = socketIO.connect(process.env.REACT_APP_SOCKET_URL);
 
 function App() {
   const { currentUser } = useContext(AuthContext);
