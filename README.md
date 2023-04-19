@@ -4,6 +4,18 @@ A simple real time chat app created with Nodejs, ReactJs and MongoDB and Firebas
 
 The app is created to run as a docker container.
 
+### Hosted on: http://34.71.9.20/
+There are default users on the app which you can start chatting with
+1. **Willie**
+    - email : **user1@mail.com**
+    - password : **P4ssword**
+2. **Waylon**
+    - email: **user2@mail.com**
+    - password: **P4ssword**
+3. **Johnny** 
+    - email: **user3@mail.com**
+    - password: **P4ssword**
+
 ## How It Works
 
 ### Clone this repo
