@@ -61,7 +61,7 @@ jobs:
   deploy_to_Google_Compute_Engine:
     runs-on: ubuntu-latest
 
-    needs: [push_to_Docker_Hub]
+    # needs: [push_to_Docker_Hub]
 
     steps:
       - uses: actions/checkout@v3
