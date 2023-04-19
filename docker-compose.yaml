@@ -18,7 +18,7 @@ services:
   api:
     build:
       context: ./simpleServer
-      dockerfile: dockerfile
+      dockerfile: Dockerfile
     environment:
       - DB_HOST=mongodb
       - DB_PORT=27017
@@ -76,6 +76,8 @@ services:
       - WDS_SOCKET_PORT=0
     networks:
       - app-network
+    logging:
+      driver: "none"
 volumes:
   mongodb_data:
 
