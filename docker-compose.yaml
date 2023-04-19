@@ -58,8 +58,6 @@ services:
       - socket
     networks:
       - app-network
-    environment:
-      - REACT_APP_API_URL=http://api:5000
     env_file:
       - ./youtube2022/.env
 
