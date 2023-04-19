@@ -4,6 +4,8 @@ import { getAuth } from "firebase/auth";
 import { getStorage } from "firebase/storage";
 import configs from "./configs/development"
 
+console.log(configs)
+
 const firebaseConfig = {
   apiKey: configs.firebase.apiKey,
   authDomain: configs.firebase.authDomain,
