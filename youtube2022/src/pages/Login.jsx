@@ -1,14 +1,12 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import {signInWithEmailAndPassword} from 'firebase/auth'
 import { auth } from "../firebase";
-import { AuthContext } from "../context/AuthContext";
 import { FaSpinner } from "react-icons/fa";
 
 function Login() {
   const { err, setErr } = useState(false);
   const navigate = useNavigate();
-  const {currentUser} = useContext(AuthContext)
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (e) => {
@@ -19,8 +17,8 @@ function Login() {
     const password = e.target[1].value;
 
     try {
-      await signInWithEmailAndPassword(auth, email, password)
-      localStorage.setItem('currentUser', JSON.stringify({uid: currentUser.uid, displayName: currentUser.displayName}))
+      const login = await signInWithEmailAndPassword(auth, email, password)
+      localStorage.setItem('currentUser', JSON.stringify({uid: login.user.uid, displayName: login.user.displayName}))
       setIsLoading(false);
       navigate('/')
     } catch (error) {
@@ -34,7 +32,7 @@ function Login() {
   return (
     <div className="formContainer">
       <div className="formWrapper">
-        <span className="logo">Lama Chat</span>
+        <span className="logo">Docker Chat</span>
         <span className="title">Register</span>
         <form  onSubmit={handleSubmit}>
           <input type="email" name="" id="" placeholder="email" />

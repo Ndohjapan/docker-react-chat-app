@@ -43,7 +43,7 @@ function Search() {
   const handleSearch = async () => {
     try {
       const user = await searchForUser(username);
-      localStorage.setItem('messagingUser', user)
+      localStorage.setItem('messagingUser', JSON.stringify(user))
       setUser(user);
     } catch (error) {
       setErr(true);

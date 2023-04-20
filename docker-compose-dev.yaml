@@ -57,6 +57,9 @@ services:
       - api
     networks:
       - app-network
+    environment:
+      - WATCHPACK_POLLING=true
+      - REACT_APP_API_URL=http://api:5000
     env_file:
       - ./youtube2022/.env
 

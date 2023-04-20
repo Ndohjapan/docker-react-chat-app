@@ -24,7 +24,6 @@ async function saveToDB(uid, displayName, email, photoURL) {
   if (response.status !== 200) {
     throw Error(body.message);
   }
-  console.log(body);
   return body;
 }
 
@@ -45,48 +44,57 @@ function Register() {
     const password = e.target[2].value;
     const file = e.target[3].files[0];
 
-    try {
-      const res = await createUserWithEmailAndPassword(auth, email, password);
-
-      const storageRef = ref(storage, displayName);
-
-      const uploadTask = uploadBytesResumable(storageRef, file);
-
-      uploadTask.on(
-        (error) => {
-          setErr(true);
-        },
-        () => {
-          getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
-            console.log("File available at", downloadURL);
-            await updateProfile(res.user, {
-              displayName,
-              photoURL: downloadURL,
-            });
-
-            try {
-              await saveToDB(res.user.uid, displayName, email, downloadURL);
-              setIsLoading(false);
-              navigate("/");
-            } catch (error) {
-              console.log(error);
-              setIsLoading(false);
-              setErr(true);
-            }
-          });
-        }
-      );
-    } catch (error) {
+    if(!file){
       setIsLoading(false);
-      setErr(true);
+      return alert('Select an image')
     }
+
+    else{
+      try {
+        const res = await createUserWithEmailAndPassword(auth, email, password);
+  
+        const storageRef = ref(storage, displayName);
+  
+        const uploadTask = uploadBytesResumable(storageRef, file);
+  
+        uploadTask.on(
+          (error) => {
+            setErr(true);
+          },
+          () => {
+            getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
+              console.log("File available at", downloadURL);
+              await updateProfile(res.user, {
+                displayName,
+                photoURL: downloadURL,
+              });
+  
+              try {
+                await saveToDB(res.user.uid, displayName, email, downloadURL);
+                setIsLoading(false);
+                navigate("/");
+              } catch (error) {
+                console.log(error);
+                setIsLoading(false);
+                setErr(true);
+              }
+            });
+          }
+        );
+      } catch (error) {
+        setIsLoading(false);
+        setErr(true);
+      }
+      
+    }
+
 
   };
 
   return (
     <div className="formContainer">
       <div className="formWrapper">
-        <span className="logo">Lama Chat</span>
+        <span className="logo">Docker Chats</span>
         <span className="title">Register</span>
         <form onSubmit={handleSubmit}>
           <input type="text" name="" id="" placeholder="display name" />
