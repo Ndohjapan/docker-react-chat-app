@@ -2,7 +2,7 @@
 
 A simple real time chat app created with Nodejs, ReactJs and MongoDB and Firebase for Authentication
 
-The app is created to run as a docker container.
+Each component of the app runs as separate containers and it is currently deployed to Google Cloud Compute Engine.
 
 ### Hosted on: http://34.71.9.20/
 There are default users on the app which you can start chatting with
@@ -14,6 +14,9 @@ There are default users on the app which you can start chatting with
     - password: **P4ssword**
 3. **Johnny** 
     - email: **user3@mail.com**
+    - password: **P4ssword**
+3. **Ndohjapan** 
+    - email: **user4@mail.com**
     - password: **P4ssword**
 
 ## How It Works
